@@ -3,128 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>亲密关系深度扫描</title>
+    <title>亲密关系深度扫描 · 灵魂版</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* 基础样式重置 */
+        /* ============ 视觉系统：极致兼容版 ============ */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #fdfbfb;
-            margin: 0; padding: 0;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-image: linear-gradient(135deg, #fff0f0 0%, #ffe9e9 100%);
+            margin: 0; padding: 0; color: #333;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 450px;
-            margin: 0 auto;
-            background: #fff;
-            min-height: 100vh;
-            padding: 20px;
+            max-width: 450px; margin: 0 auto; background: #fff;
+            min-height: 100vh; padding: 25px;
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
         .hidden { display: none !important; }
 
-        /* 按钮样式 */
+        /* 按钮 */
         .btn {
             display: block; width: 100%; padding: 15px;
             background: #ff4757; color: white; border: none;
-            border-radius: 25px; font-size: 16px; font-weight: bold;
-            margin-top: 20px; cursor: pointer;
+            border-radius: 30px; font-size: 16px; font-weight: bold;
+            margin-top: 25px; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
         }
-        .btn:active { opacity: 0.8; }
+        .btn:active { transform: scale(0.98); }
 
         /* 首页 */
-        #landing-page { text-align: center; padding-top: 40px; }
-        .logo { font-size: 60px; margin-bottom: 10px; }
+        #landing-page { text-align: center; padding-top: 50px; }
+        .logo { font-size: 64px; margin-bottom: 10px; display: inline-block; animation: heartbeat 2s infinite; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         h1 { font-size: 24px; margin: 10px 0; color: #333; }
         .input-box {
-            width: 100%; padding: 12px; border: 1px solid #ddd;
-            border-radius: 8px; font-size: 16px; margin-top: 10px;
-            background: #f9f9f9; outline: none;
+            width: 100%; padding: 14px; border: 1px solid #eee; background: #fafafa;
+            border-radius: 10px; font-size: 16px; margin-top: 10px; outline: none;
         }
+        .input-box:focus { border-color: #ff4757; background: #fff; }
 
         /* 答题页 */
         #quiz-page { padding-top: 10px; }
-        .progress-bar { height: 4px; background: #eee; border-radius: 2px; margin-bottom: 20px; }
+        .progress-bar { height: 6px; background: #eee; border-radius: 3px; margin-bottom: 25px; overflow: hidden;}
         .progress-fill { height: 100%; background: #ff4757; width: 0%; transition: width 0.3s; }
         .q-tag { 
-            display: inline-block; background: #fff0f0; color: #ff4757; 
-            padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-bottom: 10px;
+            display: inline-block; background: #ffeaa7; color: #d35400; font-weight: bold;
+            padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-bottom: 15px;
         }
-        .q-text { font-size: 18px; font-weight: bold; line-height: 1.5; margin-bottom: 20px; }
+        .q-text { font-size: 19px; font-weight: bold; line-height: 1.5; margin-bottom: 25px; color: #2d3436; }
         .option-card {
-            background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px;
+            background: #fff; border: 1px solid #f0f0f0; padding: 16px; border-radius: 12px;
             margin-bottom: 12px; cursor: pointer; display: flex; align-items: center;
         }
         .option-card:active { background: #fff5f6; border-color: #ff4757; }
         .option-circle { 
-            width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 50%; margin-right: 12px; 
+            width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 50%; margin-right: 12px; flex-shrink: 0;
         }
+        .option-text { font-size: 15px; color: #555; }
 
         /* 结果页 */
         .score-card {
             background: linear-gradient(135deg, #ff6b81, #ff4757);
-            color: white; border-radius: 15px; padding: 25px; text-align: center;
-            margin-bottom: 30px;
+            color: white; border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 30px;
         }
-        .big-score { font-size: 60px; font-weight: bold; margin: 5px 0; }
-        
+        .big-score { font-size: 64px; font-weight: 800; margin: 5px 0; }
+        .score-tag { background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 15px; font-size: 13px; display: inline-block;}
+
         .section-title { 
             font-size: 18px; font-weight: bold; margin-bottom: 15px; 
-            border-left: 4px solid #ff4757; padding-left: 10px; 
+            border-left: 5px solid #ff4757; padding-left: 10px; color: #2d3436;
         }
 
         .card {
-            background: #fff; border: 1px solid #eee; border-radius: 12px; 
-            padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            background: #fff; border: 1px solid #f5f5f5; border-radius: 15px; 
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; }
+        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; }
         
-        /* 修复后的内容样式 */
-        .diag-text { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 10px; }
+        .diag-text { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 12px; text-align: justify; }
         
+        /* 修复后的CP盒子 (垂直排列) */
         .cp-box { 
-            margin-top: 10px; padding-top: 10px; border-top: 1px dashed #eee; 
+            margin-top: 12px; padding-top: 12px; border-top: 1px dashed #eee; 
             font-size: 13px; color: #666;
         }
-        .cp-row { margin-bottom: 5px; }
-        .cp-label { color: #ff4757; font-weight: bold; margin-right: 5px; }
+        .cp-row { margin-bottom: 6px; display: flex; align-items: flex-start; }
+        .cp-label { color: #ff4757; font-weight: bold; margin-right: 5px; white-space: nowrap; flex-shrink: 0;}
 
         .term-box {
-            background: #f8f8f8; padding: 10px; border-radius: 6px; 
-            font-size: 12px; color: #666; margin-top: 10px;
+            background: #f9f9f9; padding: 12px; border-radius: 8px; 
+            font-size: 12px; color: #666; margin-top: 12px; border-left: 3px solid #ccc;
         }
 
         /* 处方笺 */
         .prescription {
-            background: #fff9fa; border: 1px dashed #ffb8b8; border-radius: 12px; padding: 15px;
+            background: #fff9fa; border: 2px dashed #ffb8b8; border-radius: 15px; padding: 20px; position: relative;
         }
-        .action-item { margin-bottom: 15px; }
+        .paper-clip { 
+            position: absolute; top: -10px; left: 50%; margin-left: -15px;
+            width: 30px; height: 8px; background: #ddd; border-radius: 4px; 
+        }
+        .action-item { margin-bottom: 18px; display: flex; align-items: flex-start; }
         .action-tag { 
-            display: inline-block; background: #ff4757; color: white; 
-            font-size: 12px; padding: 2px 6px; border-radius: 4px; margin-bottom: 5px;
+            background: #ff4757; color: white; font-weight: bold; flex-shrink: 0;
+            font-size: 12px; padding: 3px 8px; border-radius: 6px; margin-right: 10px; 
         }
-        .action-desc { font-size: 14px; color: #333; line-height: 1.5; }
+        .action-desc { font-size: 14px; color: #333; line-height: 1.5; text-align: justify; }
 
         /* 社交卡片 */
         .social-card {
-            background: #333; color: white; padding: 20px; border-radius: 12px; 
-            text-align: center; margin-top: 30px;
+            background: #2f3542; color: white; padding: 25px; border-radius: 15px; 
+            text-align: center; margin-top: 40px;
         }
         .social-tags span { 
-            display: inline-block; background: rgba(255,255,255,0.2); 
-            padding: 4px 8px; border-radius: 4px; font-size: 12px; margin: 0 5px;
+            display: inline-block; background: rgba(255,255,255,0.15); 
+            padding: 4px 8px; border-radius: 4px; font-size: 12px; margin: 0 4px;
         }
         .hint-btn {
-            background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #ccc;
-            padding: 8px 15px; border-radius: 20px; font-size: 12px; margin-top: 15px;
+            background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #ccc; cursor: pointer;
+            padding: 10px 20px; border-radius: 20px; font-size: 12px; margin-top: 20px;
         }
 
         /* 加载 */
-        #loading-page { text-align: center; padding-top: 100px; }
+        #loading-page { text-align: center; padding-top: 120px; }
+        .spinner { 
+            width: 40px; height: 40px; border: 4px solid #f3f3f3; 
+            border-top: 4px solid #ff4757; border-radius: 50%; 
+            animation: spin 1s linear infinite; margin: 0 auto 20px auto; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -135,11 +144,11 @@
         <h1>亲密关系深度扫描</h1>
         <p style="color:#666; font-size:14px;">听见身体没说出口的话 · 灵魂版</p>
         
-        <div style="text-align:left; margin-top:30px;">
-            <p style="font-weight:bold;">请输入解锁码：</p>
+        <div style="text-align:left; margin-top:30px; padding: 0 10px;">
+            <p style="font-weight:bold; margin-bottom: 10px;">请输入解锁码：</p>
             <input type="text" id="access-code" class="input-box" placeholder="购买后自动发货..." autocomplete="off">
             <button class="btn" onclick="startTest()">开始扫描</button>
-            <p style="font-size:12px; color:#999; margin-top:15px; text-align:center;">* 16道情境式测评，预计耗时3分钟</p>
+            <p style="font-size:12px; color:#999; margin-top:20px; text-align:center;">* 16道情境式测评，预计耗时3分钟</p>
         </div>
     </div>
 
@@ -154,6 +163,7 @@
     </div>
 
     <div id="loading-page" class="hidden">
+        <div class="spinner"></div>
         <h3>AI 情感专家正在会诊...</h3>
         <p id="loading-text" style="color:#666; font-size:14px; margin-top:10px;">正在解读潜意识信号...</p>
     </div>
@@ -162,48 +172,102 @@
         <div class="score-card" id="score-card-bg">
             <div style="opacity:0.9; font-size:14px;">亲密关系能量指数</div>
             <div class="big-score" id="final-score">--</div>
-            <div id="score-comment" style="background:rgba(0,0,0,0.2); display:inline-block; padding:4px 12px; border-radius:15px; font-size:13px;">正在生成...</div>
+            <div id="score-comment" class="score-tag">正在生成...</div>
         </div>
 
         <div class="section-title">能量分布图谱</div>
-        <div style="position:relative; height:200px; margin-bottom:30px;">
+        <div style="position:relative; height:220px; margin-bottom:30px;">
             <canvas id="radarChart"></canvas>
         </div>
 
         <div class="section-title">你的灵魂底色</div>
         
         <div class="card">
-            <div class="card-title">🦋 性爱人格 (Erotic Persona)</div>
+            <div class="card-title"><span style="font-size:22px; margin-right:8px;">🦋</span> 性爱人格 (Erotic Persona)</div>
             <div id="type-content"></div>
         </div>
 
         <div class="card">
-            <div class="card-title">🔒 内心安全锁 (Inner Security Lock)</div>
+            <div class="card-title"><span style="font-size:22px; margin-right:8px;">🔒</span> 内心安全锁 (Inner Security)</div>
             <div id="brake-content"></div>
         </div>
 
         <div class="section-title">给关系的灵药</div>
         <div class="prescription">
-            <div id="healing-intro" style="font-style:italic; color:#666; font-size:14px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;"></div>
+            <div class="paper-clip"></div>
+            <div id="healing-intro" style="font-style:italic; color:#7f8fa6; font-size:14px; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px; line-height:1.6;"></div>
             <div id="action-plan"></div>
         </div>
 
         <div class="social-card">
-            <div style="font-size:12px; opacity:0.7; margin-bottom:10px;">MY INTIMACY REPORT</div>
-            <div id="social-quote" style="font-size:16px; font-weight:bold; margin-bottom:15px;">"所谓亲密，不过是身体终于找到了它的母语。"</div>
+            <div style="font-size:12px; opacity:0.6; margin-bottom:10px; letter-spacing:1px;">MY INTIMACY REPORT</div>
+            <div id="social-quote" style="font-size:16px; font-weight:bold; margin-bottom:15px; font-family:'Songti SC', serif;">"所谓亲密，不过是身体终于找到了它的母语。"</div>
             <div class="social-tags" id="social-tags">
                 <span>#灵魂底色</span> <span>#亲密关系</span>
             </div>
-            <button class="hint-btn">👉 长按保存 / 截图分享</button>
+            <button class="hint-btn" onclick="alert('请直接使用手机截屏功能保存哦 ✨')">📷 截图保存 · 分享你的灵魂底色</button>
         </div>
     </div>
 </div>
 
 <script>
-    // 配置
-    var VALID_CODES = ["888888", "Love2024", "A1B2C3", "Test001"];
+    // ============================================
+    // 秘钥库：已填入你提供的所有500个码
+    // ============================================
+    var VALID_CODES = [
+"HKUYLT", "AJSQLA", "AX4EFM", "PSB5CB", "6SLNK3", "Z422XU", "CPFTCN", "GY8YCB", "BJQP2Z", "K9N5R6", 
+"4B3GR7", "H4SX8X", "84L2EY", "F5254D", "L48UDF", "FXSVQP", "LY96UL", "FG6F6M", "8E4PFE", "4LZW86", 
+"R7TVZH", "JMKBQ9", "N4CGMB", "JHYNMB", "VCRBFX", "U7DWVL", "ECHXA5", "XEEK8K", "PAN3EA", "9Q4Q95", 
+"8LP5KA", "FXN72N", "6RG9F4", "BJTT8S", "VJFMXC", "EH46NB", "TCKSNE", "D7K3HW", "276DZB", "SCVSR5", 
+"4247PQ", "JLXMZ9", "GGEHU7", "DT8VSC", "HRF33B", "7NJSY9", "ZHFVAM", "49DEH5", "FGBMVB", "F9WFPF", 
+"BZSCER", "9J9QXA", "D977HV", "DLWCVU", "TTHY2X", "JZU6Q7", "QQT83J", "UYGFX8", "BZ68AE", "R34DC4", 
+"MW9Y78", "DY9NNV", "KBJWTR", "UY9NYT", "RPSRLR", "5K6URE", "TJX3A3", "6Y26WT", "5NQ9RD", "YV2L7Q", 
+"TQC4UA", "V99ZH3", "QVUZMK", "A7C2JW", "SLPDZ7", "RLKVYL", "F279EV", "VTLU67", "TFD7Z5", "DXUFPR", 
+"B8T6SG", "NT4Z47", "6QF73Y", "9UN26W", "HWVK7H", "875UE9", "ZLRJ72", "RHRUNZ", "WDKWBH", "D8XHYN", 
+"BFQEHN", "BVJ6PX", "6SUHHM", "G22XNS", "46XEPB", "SK8LG9", "REHEXT", "8D2RB9", "JQ276S", "TPHXW8", 
+"CZWTK9", "CZMW8Q", "LY7CKW", "6YWTV4", "JV7CC7", "4MXEYB", "YTEV4Z", "KJB3QT", "27QX2N", "QPVJDG", 
+"VC2SMT", "9QCTSC", "XY89WL", "299W9N", "TTEJVP", "JU9S6L", "H9BVZE", "NS5XP5", "KZFK8H", "CPZDAC", 
+"2ZC4UN", "8CEQEZ", "QGRB4J", "VNFCFR", "TL8QV8", "BAZDQP", "FNE645", "ET3FRF", "X5ZTXF", "EWB62E", 
+"LC5GPG", "RFLCVY", "ST4465", "UATL8H", "5UZXJD", "Z56G5X", "DXKPMK", "WJW3ZQ", "5U3BUQ", "GV76Z9", 
+"HC2VF6", "D3NPN8", "HTG32N", "PC9YE4", "HS7ADE", "AAKJLK", "JNKYEV", "9TQVQ3", "H9GAJU", "FG98SS", 
+"UDE3ML", "LG8UBD", "3CMZM9", "6RV5YX", "E2GBCK", "454B6C", "E9NPHS", "56TA8E", "HFZ9DA", "MDSLGP", 
+"VFLQ4W", "H479R6", "VXRRV7", "3AZNZE", "HQVXX7", "DMQ6HJ", "LBQBPK", "B9QWVN", "M6SYEK", "G3SPQ5", 
+"A2DTAP", "E3Y9LP", "DE2PBF", "MB8UGB", "7H9F35", "JZSM7V", "NFDAS8", "JCUPD7", "MAME4L", "4K8KMA", 
+"YEP29U", "VWJRKW", "Y5KPMG", "2QSXH4", "ETR9NK", "2C58S3", "KJPYMK", "AXSDSV", "F33QRB", "E6QPC9", 
+"JHUJWR", "YKHA9S", "KCQRS4", "R97KJE", "7YYNK3", "2SUDKS", "W96SNV", "GUBRU2", "J9CEJU", "GVLK9C", 
+"HTCNJG", "D6XWVE", "U3T77A", "FYGQPW", "W7KXRP", "525EJN", "KZN5A2", "SPDW52", "A5CNFN", "SGMWGT", 
+"L2QXSA", "4FSFR5", "35QUXJ", "DEUM36", "QBRW3T", "QBMN86", "8BAPL9", "6FZSQG", "4FGD5R", "X38Q4T", 
+"8UZWVU", "8ZY5YX", "BVQDEX", "3EXUQ2", "D9H7T4", "FGJSYB", "LUB85G", "RB7CRB", "AHD9YH", "8TD8C6", 
+"9VPED8", "WK28CT", "6M4W4W", "DZUV9U", "XGR9NG", "DL8LGP", "SU3RMB", "QY82MU", "DJNVVP", "HW47VA", 
+"N49MH6", "CDYWXA", "B26EEQ", "JUD8SR", "N8ZWU3", "NJL385", "Q8KUNE", "M8M57C", "S4J6MP", "4ETHPS", 
+"HD3H7N", "DANXBZ", "FHQ7Y3", "KSWSMV", "U7S8E7", "WV25ZA", "9KJ8UA", "WU9JMV", "DJ8W3J", "EC3TQY", 
+"QYDV5M", "RRW4XD", "Q83VRB", "2H9CAR", "2HSNJ2", "B9YR4U", "AVQDVS", "8Q6UHK", "HSZ2KF", "GKFG33", 
+"WRVHCW", "KYPRG3", "4CV3XK", "LHWJLL", "UZYGUU", "82UC2Z", "SKNFUQ", "LFW5HE", "F3BDUK", "YR4XZY", 
+"ZCG69M", "SCWL5X", "YNZ2K3", "AY3N7W", "BEQNPW", "667R9Z", "JDRMWE", "5H3L68", "JWM3NQ", "H2RYZK", 
+"UPR7D4", "BQL6GJ", "B2Q37C", "AWGJG8", "MXCX9K", "PKLV6B", "XJE364", "7GUPC9", "JGQVBR", "L46CUT", 
+"X6VZQQ", "X7PYAD", "BM3MQ5", "VDVZ43", "2ALH6U", "QKSV6W", "NGVSJL", "AT6WXY", "FA4NZY", "HDZSE2", 
+"DWRKNM", "UJTE2J", "FLNF67", "EHADHU", "LPL3ND", "6TAN8X", "3ATQ3M", "WPDX5T", "FFZC7A", "R8FAXU", 
+"Y3FA4T", "P6CAV3", "7WUZK8", "3Q9YWJ", "JK26DZ", "TCPGNR", "BVRYDU", "43UL7F", "M6YQ62", "TEEY5T", 
+"AXRJJH", "XCNZJP", "5XMNUL", "X4KFL6", "HXBYQ7", "H6FR3C", "8Z3KGN", "9FGF3W", "KEF4VY", "EZW36B", 
+"BK334U", "2T7STJ", "M28SF7", "679G9L", "49YXLL", "6YV357", "ZW6488", "LC9DG6", "DZECSR", "2B6QJA", 
+"8TJXAJ", "APJBZ4", "UYMMPX", "HFR6VF", "E28M6M", "F5PUCM", "DBMURJ", "RCQ3ZL", "5VR7UM", "JUGE3Q", 
+"V22MHE", "DB32Y2", "FNUFJY", "7V4JT2", "KHSHUT", "57ZQDB", "2QNHAU", "6L8R5V", "4KSKU8", "9VN7W8", 
+"GV5D3P", "GMDWJM", "EJAWGZ", "QBBMEV", "JYGRY4", "2GRZ3C", "369KGB", "BYWAKD", "QF3DUQ", "DDJ54C", 
+"PG252Q", "LC9YQX", "DEKTL4", "BB4LWT", "F9YJS6", "Z3QS5W", "DHPUYH", "EFN4E7", "TXG4KN", "YSK7R4", 
+"BX9J8P", "Z88ATV", "V47YHM", "SYAR8M", "YL3WAD", "JFDFSW", "K4WPLF", "PJQZDC", "AXV5UB", "243RA2", 
+"QNNS53", "G7Q3WX", "D4WAWF", "RNPG9V", "UX26Q8", "P69JYF", "ANQRC6", "R5VFMY", "SY9QD9", "U83YAB", 
+"EGMAMW", "G4EECZ", "ZKVPGL", "W6YJB2", "ABCFGF", "HM327F", "3G3DEJ", "KVK2ZD", "R6EX8L", "NG24YX", 
+"L2LHQU", "MWL4HW", "XYHFQR", "ACGY3R", "D7WY5B", "65N3AR", "AQV8AP", "DTK4DX", "2GWVD7", "7J3JQQ", 
+"JKALNN", "A8V6VC", "ZHXEE7", "2E72VU", "TKFXK2", "CW4M6N", "SCTUQR", "WLDY7E", "A5FXJZ", "24U6HJ", 
+"MLXLNR", "WA5UZR", "259HR2", "7N5JNX", "U9VSC4", "VFELAG", "KTFSXC", "JKKHSQ", "MKJ5H2", "YEGFP2", 
+"47QDQJ", "U67HK2", "FMH4UA", "DGXA7W", "LJFA9S", "CZ4VQD", "HUHNYH", "7EAJCE", "3BHK9S", "DVCEST", 
+"A2XQAK", "97NV7S", "MXXC4Z", "KQFRLE", "8RSAQY", "YWYNTT", "STNLUD", "FZ8DFX", "T522KR", "KTXZZ2", 
+"QYYPCP", "49XFCH", "55HC9V", "DA6F5S", "BBGPDU", "B64M3U", "V2GSE8", "CQ2R88", "PE3AHC", "TD49X6", 
+"7TDYU4", "DKB2PK", "4KBRAJ", "9YBR2U", "YXM7HM", "6X5W55", "ME4MBJ", "Q4HPPM", "892WUW", "BP2HR2", 
+"5KEURQ", "5FENZV", "9YYCPD", "DPCBEY", "9QJC3U", "KD5SS8", "WJ47C4", "A2GURW", "KRPFNF", "28G4J6"
+    ];
 
-    // 题库
+    // ================= 16道大师级扎心题库 (兼容版) =================
     var questions = [
         // 现状
         { category: "能量场·频率", title: "除去生理期，最近两个月，你们深层亲密接触（Do）的真实状态是？", options: [{ text: "干柴烈火：每周2次以上，充满激情", score: 100, dimension: "frequency" }, { text: "细水长流：每周1次左右，规律且稳定", score: 80, dimension: "frequency" }, { text: "例行公事：半个月1次，像完成任务", score: 50, dimension: "frequency" }, { text: "室友模式：一个月以上没有了，心如止水", score: 20, dimension: "frequency" }] },
@@ -360,7 +424,7 @@
         var avgBrake = brakes.length ? (sumBrake/brakes.length) : 60;
         var brakeLevel = avgBrake <= 60 ? "High" : "Low";
 
-        // 人格内容
+        // 人格内容 (CP盒子已修复对齐)
         var typeHtml = "";
         var socialTag = "";
         var socialQuote = "";
@@ -368,25 +432,31 @@
         if(maxType === "Sensual") {
             socialTag = "#高敏感·猫系";
             socialQuote = "爱对你来说，是皮肤上的诗句。";
-            typeHtml = '<div style="font-weight:bold; color:#d35400; margin-bottom:5px;">高敏感·猫系 (Sensual)</div>' +
+            typeHtml = '<div style="font-weight:bold; color:#d35400; margin-bottom:5px;">🦋 高敏感·猫系 (Sensual)</div>' +
                        '<div class="diag-text">你像一只优雅的猫。你需要的不是直奔主题的“交作业”，而是漫长的、充满了爱意的预热。你现在的抗拒，很可能是因为你的身体觉得被“冒犯”了。</div>' +
-                       '<div class="cp-box"><div class="cp-row"><span class="cp-label">❤️ 绝配：</span>能量型 (懂你的灵魂)</div>' +
-                       '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span>机械型 (只走程序)</div></div>' +
+                       '<div class="cp-box">' +
+                           '<div class="cp-row"><span class="cp-label">❤️ 绝配：</span><span>能量型 (懂你的灵魂)</span></div>' +
+                           '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span><span>机械型 (只走程序)</span></div>' +
+                       '</div>' +
                        '<div class="term-box"><b>✨ 能量解读：</b>你的皮肤是接收爱的天线。当你感到被爱时，你比谁都柔软；当你感到压力时，你会瞬间炸毛并逃离。</div>';
         } else if(maxType === "Visual") {
             socialTag = "#视觉系·猎手";
             socialQuote = "爱是眼里的火焰，始于凝视，终于燃烧。";
-            typeHtml = '<div style="font-weight:bold; color:#c0392b; margin-bottom:5px;">视觉系·猎手 (Visual)</div>' +
+            typeHtml = '<div style="font-weight:bold; color:#c0392b; margin-bottom:5px;">🔥 视觉系·猎手 (Visual)</div>' +
                        '<div class="diag-text">你是热情的火焰。你容易被视觉符号（身材/眼神/灯光）点燃。现在的平淡，很大程度是因为生活中缺乏了这些让你眼前一亮的“信号”。</div>' +
-                       '<div class="cp-box"><div class="cp-row"><span class="cp-label">❤️ 绝配：</span>大胆型 (敢于展示)</div>' +
-                       '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span>保守型 (永远关灯)</div></div>';
+                       '<div class="cp-box">' +
+                           '<div class="cp-row"><span class="cp-label">❤️ 绝配：</span><span>大胆型 (敢于展示)</span></div>' +
+                           '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span><span>保守型 (永远关灯)</span></div>' +
+                       '</div>';
         } else {
             socialTag = "#流动型·灵魂";
             socialQuote = "身体的纠缠，本质是能量的共振。";
-            typeHtml = '<div style="font-weight:bold; color:#0984e3; margin-bottom:5px;">流动型·通灵者 (Energetic)</div>' +
+            typeHtml = '<div style="font-weight:bold; color:#0984e3; margin-bottom:5px;">💧 流动型·通灵者 (Energetic)</div>' +
                        '<div class="diag-text">你非常看重“能量流动”。如果两个人情绪不同频，或者刚吵完架，你的身体会本能地关闭。你需要的是先连心，再连身。</div>' +
-                       '<div class="cp-box"><div class="cp-row"><span class="cp-label">❤️ 绝配：</span>灵魂伴侣 (情绪同频)</div>' +
-                       '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span>冷漠型 (拒绝沟通)</div></div>';
+                       '<div class="cp-box">' +
+                           '<div class="cp-row"><span class="cp-label">❤️ 绝配：</span><span>灵魂伴侣 (情绪同频)</span></div>' +
+                           '<div class="cp-row"><span class="cp-label">⚔️ 天敌：</span><span>冷漠型 (拒绝沟通)</span></div>' +
+                       '</div>';
         }
         document.getElementById('type-content').innerHTML = typeHtml;
         document.getElementById('social-quote').innerText = socialQuote;
@@ -395,11 +465,11 @@
         // 刹车内容
         var brakeHtml = "";
         if(brakeLevel === "High") {
-            brakeHtml = '<div style="font-weight:bold; color:#c0392b; margin-bottom:5px;">高敏·安全锁 (Sensitive Lock)</div>' +
+            brakeHtml = '<div style="font-weight:bold; color:#c0392b; margin-bottom:5px;">🔒 高敏·安全锁 (Sensitive Lock)</div>' +
                         '<div class="diag-text">你不是“冷淡”，你是“高压受害者”。你的内心有一把极灵敏的安全锁。压力、身材焦虑、或环境噪音，都会优先触发你的防御机制。</div>' +
                         '<div class="term-box"><b>💡 懂你：</b>这说明你是一个心思细腻的人。只有在绝对放松、被宠爱的环境里，你的锁才会打开。</div>';
         } else {
-            brakeHtml = '<div style="font-weight:bold; color:#27ae60; margin-bottom:5px;">平衡·安全锁 (Balanced Lock)</div>' +
+            brakeHtml = '<div style="font-weight:bold; color:#27ae60; margin-bottom:5px;">🔓 平衡·安全锁 (Balanced Lock)</div>' +
                         '<div class="diag-text">你的生理机制很健康。如果不想做，更多是因为情感连接或沟通方式出现了错位，而非生理层面的抑制。</div>';
         }
         document.getElementById('brake-content').innerHTML = brakeHtml;
